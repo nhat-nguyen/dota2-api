@@ -28,7 +28,7 @@ function getTeamsRankings() {
             country: 'span[title]@title',
             name: 'span:last-child',
             id: 'tr.ranking-link@data-id'
-        }])(function (err, teams) {
+        }])(function(err, teams) {
             if (err) {
                 reject(err);
             } else {
@@ -279,7 +279,7 @@ function getHeroStats(name) {
     };
 
     var promise = function(resolve, reject) {
-        x('http://www.dotabuff.com/heroes/abaddon', '.col-8', {
+        x(heroLink, '.col-8', {
             mostUsedItems: x('section:nth-child(5) tr', [mostUsedItemsModel]),
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
@@ -294,3 +294,14 @@ function getHeroStats(name) {
 
     return new Promise(promise);
 }
+
+module.export = {
+    getTeamsRankings: getTeamsRankings,
+    getTeamsLogos: getTeamsLogos,
+    getTeamData: getTeamData,
+    getUpcomingMatches: getUpcomingMatches,
+    getLiveMatches: getLiveMatches,
+    getRecentMatchesResults: getRecentMatchesResults,
+    getHeroesLinks: getHeroesLinks,
+    getHeroStats: getHeroStats
+};
