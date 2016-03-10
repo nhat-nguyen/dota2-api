@@ -1,0 +1,21 @@
+{
+  "name": "gosugamers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cheerio": "^0.19.0",
+    "emoji-flags": "^1.1.0",
+    "express": "^4.13.4",
+    "lodash": "^4.0.0",
+    "osmosis": "^0.1.1",
+    "x-ray": "^2.0.3",
+    "x-ray-phantom": "^1.0.1"
+  }
+}
