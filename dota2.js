@@ -138,11 +138,6 @@ function getTeamData(id) {
     return new Promise(promise);
 }
 
-
-getTeamData(14169).then(function(data) {
-    prettyPrint(data);
-});
-
 // Upcoming matches
 function getUpcomingMatches() {
     var promise = function(resolve, reject) {
@@ -295,13 +290,12 @@ function getHeroStats(name) {
     return new Promise(promise);
 }
 
-module.export = {
+module.exports = {
     getTeamsRankings: getTeamsRankings,
     getTeamsLogos: getTeamsLogos,
     getTeamData: getTeamData,
     getUpcomingMatches: getUpcomingMatches,
     getLiveMatches: getLiveMatches,
     getRecentMatchesResults: getRecentMatchesResults,
-    getHeroesLinks: getHeroesLinks,
     getHeroStats: getHeroStats
 };
