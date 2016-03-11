@@ -1,4 +1,4 @@
-var PORT = 3000 || process.env.PORT;
+var PORT = process.env.PORT || 3000;
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
