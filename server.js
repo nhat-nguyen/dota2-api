@@ -4,10 +4,23 @@ var bodyParser = require('body-parser');
 var app = express();
 var dota = require('./dota2.js');
 
+app.set('json spaces', 40);
+
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-    res.send('Hello World!');
+    var routes = {
+        '/': 'root (here!)',
+        '/teams/rankings': 'get rankings for teams, data obtained from gosugamers',
+        '/logos': 'get a list of teams logos',
+        '/teams/:id': 'get detailed information of a team with given id',
+        '/matches/live': 'get a list of live matches',
+        '/matches/recent': 'get a list of recent matches',
+        '/matches/upcoming': 'get a list of upcoming matches',
+        '/heroes/:name': 'get detailed information of a hero'
+    };
+
+    res.json(routes);
 });
 
 app.get('/teams/rankings', function(req, res) {
