@@ -10,7 +10,7 @@ app.get('/', function(req, res) {
     res.send('Hello World!');
 });
 
-app.get('/rankings', function(req, res) {
+app.get('/teams/rankings', function(req, res) {
     dota.getTeamsRankings().then(function(data) {
         res.json(data);
     }, function(err) {
