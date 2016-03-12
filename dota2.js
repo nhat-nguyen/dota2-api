@@ -197,7 +197,7 @@ function getLiveMatches() {
 }
 
 // Recent results
-function getRecentMatchesResults() {
+function getRecentMatches() {
     var promise = function(resolve, reject) {
         x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:last-child tr', [{
             firstOpponent: {
@@ -236,14 +236,15 @@ function getRecentMatchesResults() {
     return new Promise(promise);
 }
 
-function getHeroesLinks() {
+// Returns a map from hero name to its corresponding name used in the api
+function getHeroes() {
     var promise = function(resolve, reject) {
         x('http://www.dotabuff.com/heroes', ['.name'])(function(err, heroes) {
             if (err) {
                 reject(err);
             } else {
                 var map = _.zipObject(heroes, _.map(heroes, function(hero) {
-                    return 'http://www.dotabuff.com/heroes/' + _.chain(hero).replace(/\s/g, '-').toLower().value();
+                    return _.chain(hero).replace(/\s/g, '-').toLower().value();
                 }));
 
                 resolve(map);
@@ -296,6 +297,7 @@ module.exports = {
     getTeamData: getTeamData,
     getUpcomingMatches: getUpcomingMatches,
     getLiveMatches: getLiveMatches,
-    getRecentMatchesResults: getRecentMatchesResults,
-    getHeroStats: getHeroStats
+    getRecentMatches: getRecentMatches,
+    getHeroStats: getHeroStats,
+    getHeroes: getHeroes
 };
