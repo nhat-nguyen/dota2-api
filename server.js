@@ -2,6 +2,8 @@ var PORT = process.env.PORT || 3000;
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+
+var apicache = require('apicache').options({ debug: true }).middleware;
 var dota = require('./dota2.js');
 
 app.set('json spaces', 40);
@@ -24,7 +26,7 @@ app.get('/', function(req, res) {
     res.json(routes);
 });
 
-app.get('/teams/rankings', function(req, res) {
+app.get('/teams/rankings', apicache('2 hours'), function(req, res) {
     dota.getTeamsRankings().then(function(data) {
         res.json(data);
     }, function(err) {
@@ -32,7 +34,7 @@ app.get('/teams/rankings', function(req, res) {
     });
 });
 
-app.get('/teams/logos', function(req, res) {
+app.get('/teams/logos', apicache('1 day'), function(req, res) {
     dota.getTeamsLogos().then(function(data) {
         res.json(data);
     }, function(err) {
@@ -40,7 +42,7 @@ app.get('/teams/logos', function(req, res) {
     });
 });
 
-app.get('/teams/:id', function(req, res) {
+app.get('/teams/:id', apicache('2 hours'), function(req, res) {
     var id = req.params.id;
     dota.getTeamData(id).then(function(data) {
         res.json(data);
@@ -49,7 +51,7 @@ app.get('/teams/:id', function(req, res) {
     });
 });
 
-app.get('/matches/live', function(req, res) {
+app.get('/matches/live', apicache('5 minutes'), function(req, res) {
     dota.getLiveMatches().then(function(data) {
         res.json(data);
     }, function(err) {
@@ -57,15 +59,15 @@ app.get('/matches/live', function(req, res) {
     });
 });
 
-app.get('/matches/recent', function(req, res) {
-    dota.getRecentMatchesResults().then(function(data) {
+app.get('/matches/recent', apicache('1 hour'), function(req, res) {
+    dota.getRecentMatches().then(function(data) {
         res.json(data);
     }, function(err) {
         req.status(500).send();
     });
 });
 
-app.get('/matches/upcoming', function(req, res) {
+app.get('/matches/upcoming', apicache('2 hours'), function(req, res) {
     dota.getUpcomingMatches().then(function(data) {
         res.json(data);
     }, function(err) {
@@ -73,7 +75,7 @@ app.get('/matches/upcoming', function(req, res) {
     });
 });
 
-app.get('/heroes', function(req, res) {
+app.get('/heroes', apicache('2 hours'), function(req, res) {
     dota.getHeroes().then(function(data) {
         res.json(data);
     }, function(err) {
@@ -81,7 +83,7 @@ app.get('/heroes', function(req, res) {
     });
 });
 
-app.get('/heroes/:name', function(req, res) {
+app.get('/heroes/:name', apicache('2 hours'), function(req, res) {
     var name = req.params.name;
     dota.getHeroStats(name).then(function(data) {
         res.json(data);
