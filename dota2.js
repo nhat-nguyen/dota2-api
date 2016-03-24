@@ -76,7 +76,7 @@ function getTeamData(id) {
         });
     };
 
-    var parsePerformanceTable = function(html) {
+    var getPerformanceTable = function(html) {
         var parsedArray = _.chain(html).replace(/ +/g, ' ').split('\r\n')
                             .remove(function(element) {
                                 return element && element !== ' ' && !_.includes(element, 'Winrate')
@@ -106,6 +106,7 @@ function getTeamData(id) {
 
     var promise = function(resolve, reject) {
         x('http://www.gosugamers.net/rankings/show/team/' + id, {
+            name: x('h3'),
             roster: x('#roster a', [{
                 player: 'a@title',
                 signatureHeroes: x('.heroes', ['img@title']),
@@ -127,7 +128,8 @@ function getTeamData(id) {
             if (err) {
                 reject(err);
             } else {
-                obj.perfomance = parsePerformanceTable(obj.perfomance);
+                obj.perfomance = getPerformanceTable(obj.perfomance);
+                obj.name = _.trim(obj.name);
                 parsePlayerAvatar(obj);
                 parseRecentMatchHtml(obj);
                 resolve(obj);
