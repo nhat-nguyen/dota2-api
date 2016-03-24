@@ -130,6 +130,7 @@ function getTeamData(id) {
             } else {
                 obj.perfomance = getPerformanceTable(obj.perfomance);
                 obj.name = _.trim(obj.name);
+                obj.id = id;
                 parsePlayerAvatar(obj);
                 parseRecentMatchHtml(obj);
                 resolve(obj);
