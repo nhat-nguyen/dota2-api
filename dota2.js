@@ -243,9 +243,9 @@ function getHeroes() {
             if (err) {
                 reject(err);
             } else {
-                var map = _.zipObject(heroes, _.map(heroes, function(hero) {
-                    return _.chain(hero).replace(/\s/g, '-').toLower().value();
-                }));
+                var map = _.zipObject(_.map(heroes, function(hero) {
+                    return _.kebabCase(hero);
+                }), heroes);
 
                 resolve(map);
             }
@@ -279,11 +279,16 @@ function getHeroStats(name) {
             mostUsedItems: x('section:nth-child(5) tr', [mostUsedItemsModel]),
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
-        })(function(err, items) {
+        })(function(err, hero) {
             if (err) {
                 reject(err);
             } else {
-                resolve(items);
+                getHeroes().then(function(res) {
+                    hero['name'] = res[name];
+                    resolve(hero);
+                }, function(err) {
+                    reject(err);
+                });
             }
         });
     };
