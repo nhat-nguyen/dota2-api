@@ -171,6 +171,8 @@ function getUpcomingMatches() {
                                              .value();
                     match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
                     match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
+                    match.firstOpponent.score = 'N/A';
+                    match.secondOpponent.score = 'N/A';
                 });
 
                 resolve(upcomingMatches);
@@ -229,6 +231,7 @@ function getRecentMatches() {
                                              .value();
                     match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
                     match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
+                    match.liveIn = 'N/A';
                 });
 
                 resolve(matches);
