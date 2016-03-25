@@ -186,13 +186,26 @@ function getUpcomingMatches() {
 // Live matches
 function getLiveMatches() {
     var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child a.match.hover-background', [{
-            opponent_1: '.opp.opp1 span:first-child',
-            opponent_2: '.opp.opp2 span:last-child'
+        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child', [{
+            firstOpponent: {
+                name: '.opp.opp1 span:first-child',
+                betPercentage: '.bet-percentage.bet1'
+            },
+            secondOpponent: {
+                name: '.opp.opp2 span:last-child',
+                betPercentage: '.bet-percentage.bet2'
+            },
+            tournament: {
+                name: x('.tournament a@href', 'h1'),
+                icon: '.tournament-icon img@src'
+            }
         }])(function(err, matches) {
             if (err) {
                 reject(err);
             } else {
+                _(matches).forEach(function(match) {
+                    match.liveIn = 'Now';
+                });
                 resolve(matches);
             }
         });
