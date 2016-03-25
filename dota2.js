@@ -201,7 +201,12 @@ function getLiveMatches() {
             }
         }])(function(err, matches) {
             if (err) {
-                reject(err);
+                // happens when there is no live match
+                if (err.message === 'undefined is not a URL') {
+                    resolve([]);
+                } else {
+                    reject(err);
+                }
             } else {
                 _(matches).forEach(function(match) {
                     match.liveIn = 'Now';
