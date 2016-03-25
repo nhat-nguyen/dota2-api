@@ -30,7 +30,7 @@ app.get('/teams/rankings', apicache('2 hours'), function(req, res) {
     dota.getTeamsRankings().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -38,7 +38,7 @@ app.get('/teams/logos', apicache('1 day'), function(req, res) {
     dota.getTeamsLogos().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -47,7 +47,7 @@ app.get('/teams/:id', apicache('2 hours'), function(req, res) {
     dota.getTeamData(id).then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -55,7 +55,7 @@ app.get('/matches/live', apicache('5 minutes'), function(req, res) {
     dota.getLiveMatches().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -63,7 +63,7 @@ app.get('/matches/recent', apicache('1 hour'), function(req, res) {
     dota.getRecentMatches().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -71,7 +71,7 @@ app.get('/matches/upcoming', apicache('2 hours'), function(req, res) {
     dota.getUpcomingMatches().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -79,7 +79,7 @@ app.get('/heroes', apicache('2 hours'), function(req, res) {
     dota.getHeroes().then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
@@ -88,7 +88,7 @@ app.get('/heroes/:name', apicache('2 hours'), function(req, res) {
     dota.getHeroStats(name).then(function(data) {
         res.json(data);
     }, function(err) {
-        req.status(500).send();
+        res.status(500).send();
     });
 });
 
