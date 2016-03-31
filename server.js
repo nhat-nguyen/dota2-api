@@ -83,6 +83,15 @@ app.get('/heroes', apicache('2 hours'), function(req, res) {
     });
 });
 
+app.get('/heroes/all', apicache('2 hours'), function(req, res) {
+    var name = req.params.name;
+    dota.getHeroesStats(name).then(function(data) {
+        res.json(data);
+    }, function(err) {
+        res.status(500).send();
+    });
+});
+
 app.get('/heroes/:name', apicache('2 hours'), function(req, res) {
     var name = req.params.name;
     dota.getHeroStats(name).then(function(data) {
