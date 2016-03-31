@@ -270,8 +270,11 @@ function getHeroes() {
     });
 }
 
-function getHeroesStats() {
-    var heroesPromises = _.map(heroes, function(hero) {
+function getHeroesStats(start, end) {
+    start = start || 0;
+    end = end || heroes.length;
+
+    var heroesPromises = _.map(_.slice(heroes, start, end), function(hero) {
         return getHeroStats(hero);
     });
 
