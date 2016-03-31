@@ -271,10 +271,8 @@ function getHeroes() {
 }
 
 function getHeroesStats() {
-    var heroesPromises = [];
-
-    _.forEach(heroes, function(hero) {
-        heroesPromises.push(getHeroStats(hero));
+    var heroesPromises = _.map(heroes, function(hero) {
+        return getHeroStats(hero);
     });
 
     return new Promise(function(resolve, reject) {
@@ -336,5 +334,3 @@ module.exports = {
     getHeroesStats: getHeroesStats,
     getHeroes: getHeroes
 };
-
-getHeroesStats();
