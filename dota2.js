@@ -3,6 +3,9 @@ var cheerio = require('cheerio');
 var Xray = require('x-ray');
 var x = Xray();
 
+var heroesNames = require('./res/heroes-names.json');
+var heroes = require('./res/heroes.json');
+
 var regexes = {
     lineBreaks: '\r?\n|\r',
     multipleSpaces: '\s+',
@@ -262,21 +265,23 @@ function getRecentMatches() {
 
 // Returns a map from hero name to its corresponding name used in the api
 function getHeroes() {
-    var promise = function(resolve, reject) {
-        x('http://www.dotabuff.com/heroes', ['.name'])(function(err, heroes) {
-            if (err) {
-                reject(err);
-            } else {
-                var map = _.zipObject(_.map(heroes, function(hero) {
-                    return _.kebabCase(hero);
-                }), heroes);
+    return new Promise(function(resolve, reject) {
+        resolve(heroesNames);
+    });
+}
 
-                resolve(map);
-            }
+function getHeroesStats() {
+    var heroesPromises = [];
+
+    _.forEach(heroes, function(hero) {
+        heroesPromises.push(getHeroStats(hero));
+    });
+
+    return new Promise(function(resolve, reject) {
+        Promise.all(heroesPromises).then(function(heroesStats) {
+            resolve(_.keyBy(heroesStats, 'name'));
         });
-    };
-
-    return new Promise(promise);
+    });
 }
 
 function getHeroStats(name) {
@@ -328,5 +333,8 @@ module.exports = {
     getLiveMatches: getLiveMatches,
     getRecentMatches: getRecentMatches,
     getHeroStats: getHeroStats,
+    getHeroesStats: getHeroesStats,
     getHeroes: getHeroes
 };
+
+getHeroesStats();
