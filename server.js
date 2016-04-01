@@ -95,9 +95,6 @@ app.get('/heroes/all/:heroesPerRequest/:page?', apicache('2 hours'), heroesPagin
         start = (page - 1) * nHeroes,
         end = page * nHeroes;
 
-    // console.log(start);
-    // console.log(end);
-
     dota.getHeroesStats(start, end).then(function(data) {
         res.json(data);
     }, function(err) {
