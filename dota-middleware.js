@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var url = require('url');
+var numberOfHeroes = require('./res/heroes.json').length;
 
 function getNextUrl(originalUrl, currentPage) {
     var nextPage = parseInt(currentPage, 10) + 1 || 2;
@@ -26,8 +27,15 @@ function nextUrlMiddleware(request, response, next) {
                         });
 
     response.json = function(data) {
+        var nHeroes = parseInt(request.params.heroesPerRequest, 10),
+            page = parseInt(request.params.page, 10) || 1,
+            nextUrl = null;
+
         // arguments[0] contains the body passed in
-        arguments[0].next = getNextUrl(originalUrl, request.params.page);
+        arguments[0].next = (nHeroes * page >= numberOfHeroes)
+                            ? null
+                            : getNextUrl(originalUrl, request.params.page);
+
         oldJson.apply(response, arguments);
     }
 
