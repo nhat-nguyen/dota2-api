@@ -305,10 +305,11 @@ function getHeroStats(name) {
     };
 
     var promise = function(resolve, reject) {
-        x(heroLink, '.col-8', {
+        x(heroLink, {
             mostUsedItems: x('section:nth-child(5) tr', [mostUsedItemsModel]),
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
+            icon: x('.header-content img@src')
         })(function(err, hero) {
             if (err) {
                 reject(err);
