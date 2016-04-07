@@ -1,0 +1,446 @@
+{
+  "abaddon": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/0c/Abaddon.png",
+    "fullName": "Abaddon"
+  },
+  "alchemist": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/5b/Alchemist.png",
+    "fullName": "Alchemist"
+  },
+  "ancient-apparition": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/b1/Ancient_Apparition.png",
+    "fullName": "Ancient Apparition"
+  },
+  "anti-mage": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/ef/Anti-Mage",
+    "fullName": "Anti-Mage"
+  },
+  "arc-warden": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/4d/Arc_Warden.png",
+    "fullName": "Arc Warden"
+  },
+  "axe": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/fb/Axe.png",
+    "fullName": "Axe"
+  },
+  "bane": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/9a/Bane.png",
+    "fullName": "Bane"
+  },
+  "batrider": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/5e/Batrider.png",
+    "fullName": "Batrider"
+  },
+  "beastmaster": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/d/d6/Beastmaster.png",
+    "fullName": "Beastmaster"
+  },
+  "bloodseeker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/1e/Bloodseeker.png",
+    "fullName": "Bloodseeker"
+  },
+  "bounty-hunter": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/1d/Bounty_Hunter.png",
+    "fullName": "Bounty Hunter"
+  },
+  "brewmaster": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/43/Brewmaster.png",
+    "fullName": "Brewmaster"
+  },
+  "bristleback": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/5f/Bristleback.png",
+    "fullName": "Bristleback"
+  },
+  "broodmother": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/19/Broodmother.png",
+    "fullName": "Broodmother"
+  },
+  "centaur-warrunner": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/b6/Centaur_Warrunner.png",
+    "fullName": "Centaur Warrunner"
+  },
+  "chaos-knight": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/cf/Chaos_Knight.png",
+    "fullName": "Chaos Knight"
+  },
+  "chen": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/80/Chen.png",
+    "fullName": "Chen"
+  },
+  "clinkz": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/9c/Clinkz.png",
+    "fullName": "Clinkz"
+  },
+  "clockwerk": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/b3/Clockwerk.png",
+    "fullName": "Clockwerk"
+  },
+  "crystal-maiden": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/10/Crystal_Maiden.png",
+    "fullName": "Crystal Maiden"
+  },
+  "dark-seer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/f7/Dark_Seer.png",
+    "fullName": "Dark Seer"
+  },
+  "dazzle": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/74/Dazzle.png",
+    "fullName": "Dazzle"
+  },
+  "death-prophet": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/52/Death_Prophet.png",
+    "fullName": "Death Prophet"
+  },
+  "disruptor": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/ce/Disruptor.png",
+    "fullName": "Disruptor"
+  },
+  "doom": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/0b/Doom.png",
+    "fullName": "Doom"
+  },
+  "dragon-knight": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/4e/Dragon_Knight.png",
+    "fullName": "Dragon Knight"
+  },
+  "drow-ranger": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/36/Drow_Ranger.png",
+    "fullName": "Drow Ranger"
+  },
+  "earth-spirit": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/40/Earth_Spirit.png",
+    "fullName": "Earth Spirit"
+  },
+  "earthshaker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/bd/Earthshaker.png",
+    "fullName": "Earthshaker"
+  },
+  "elder-titan": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/95/Elder_Titan.png",
+    "fullName": "Elder Titan"
+  },
+  "ember-spirit": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/1a/Ember_Spirit.png",
+    "fullName": "Ember Spirit"
+  },
+  "enchantress": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/99/Enchantress.png",
+    "fullName": "Enchantress"
+  },
+  "enigma": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/8b/Enigma.png",
+    "fullName": "Enigma"
+  },
+  "faceless-void": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/03/Faceless_Void.png",
+    "fullName": "Faceless Void"
+  },
+  "gyrocopter": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/5d/Gyrocopter.png",
+    "fullName": "Gyrocopter"
+  },
+  "huskar": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/2b/Huskar.png",
+    "fullName": "Huskar"
+  },
+  "invoker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/39/Invoker.png",
+    "fullName": "Invoker"
+  },
+  "io": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/94/Io.png",
+    "fullName": "Io"
+  },
+  "jakiro": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/1d/Jakiro.png",
+    "fullName": "Jakiro"
+  },
+  "juggernaut": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/07/Juggernaut.png",
+    "fullName": "Juggernaut"
+  },
+  "keeper-of-the-light": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/5c/Keeper_of_the_Light.png",
+    "fullName": "Keeper of the Light"
+  },
+  "kunkka": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/89/Kunkka.png",
+    "fullName": "Kunkka"
+  },
+  "legion-commander": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/3e/Legion_Commander.png",
+    "fullName": "Legion Commander"
+  },
+  "leshrac": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/e9/Leshrac.png",
+    "fullName": "Leshrac"
+  },
+  "lich": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/86/Lich.png",
+    "fullName": "Lich"
+  },
+  "lifestealer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/6/65/Lifestealer.png",
+    "fullName": "Lifestealer"
+  },
+  "lina": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/ec/Lina.png",
+    "fullName": "Lina"
+  },
+  "lion": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/47/Lion.png",
+    "fullName": "Lion"
+  },
+  "lone-druid": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/3d/Lone_Druid.png",
+    "fullName": "Lone Druid"
+  },
+  "luna": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/13/Luna.png",
+    "fullName": "Luna"
+  },
+  "lycan": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/15/Lycan.png",
+    "fullName": "Lycan"
+  },
+  "magnus": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/58/Magnus.png",
+    "fullName": "Magnus"
+  },
+  "medusa": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/c3/Medusa.png",
+    "fullName": "Medusa"
+  },
+  "meepo": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/03/Meepo.png",
+    "fullName": "Meepo"
+  },
+  "mirana": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/f9/Mirana.png",
+    "fullName": "Mirana"
+  },
+  "morphling": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/7f/Morphling.png",
+    "fullName": "Morphling"
+  },
+  "naga-siren": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/d/d5/Naga_Siren.png",
+    "fullName": "Naga Siren"
+  },
+  "nature-s-prophet": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/aa/Nature%27s_Prophet",
+    "fullName": "Nature's Prophet"
+  },
+  "necrophos": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/13/Necrophos.png",
+    "fullName": "Necrophos"
+  },
+  "night-stalker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/bb/Night_Stalker.png",
+    "fullName": "Night Stalker"
+  },
+  "nyx-assassin": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/9e/Nyx_Assassin.png",
+    "fullName": "Nyx Assassin"
+  },
+  "ogre-magi": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/ae/Ogre_Magi.png",
+    "fullName": "Ogre Magi"
+  },
+  "omniknight": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/ab/Omniknight.png",
+    "fullName": "Omniknight"
+  },
+  "oracle": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/17/Oracle.png",
+    "fullName": "Oracle"
+  },
+  "outworld-devourer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/40/Outworld_Devourer.png",
+    "fullName": "Outworld Devourer"
+  },
+  "phantom-assassin": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/f0/Phantom_Assassin.png",
+    "fullName": "Phantom Assassin"
+  },
+  "phantom-lancer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/51/Phantom_Lancer.png",
+    "fullName": "Phantom Lancer"
+  },
+  "phoenix": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/c1/Phoenix.png",
+    "fullName": "Phoenix"
+  },
+  "puck": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/b6/Puck.png",
+    "fullName": "Puck"
+  },
+  "pudge": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/9f/Pudge.png",
+    "fullName": "Pudge"
+  },
+  "pugna": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/1a/Pugna.png",
+    "fullName": "Pugna"
+  },
+  "queen-of-pain": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/b/b5/Queen_of_Pain.png",
+    "fullName": "Queen of Pain"
+  },
+  "razor": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/a0/Razor.png",
+    "fullName": "Razor"
+  },
+  "riki": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/39/Riki.png",
+    "fullName": "Riki"
+  },
+  "rubick": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/37/Rubick.png",
+    "fullName": "Rubick"
+  },
+  "sand-king": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/2c/Sand_King.png",
+    "fullName": "Sand King"
+  },
+  "shadow-demon": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/9d/Shadow_Demon.png",
+    "fullName": "Shadow Demon"
+  },
+  "shadow-fiend": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/71/Shadow_Fiend.png",
+    "fullName": "Shadow Fiend"
+  },
+  "shadow-shaman": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/11/Shadow_Shaman.png",
+    "fullName": "Shadow Shaman"
+  },
+  "silencer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/43/Silencer.png",
+    "fullName": "Silencer"
+  },
+  "skywrath-mage": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/51/Skywrath_Mage.png",
+    "fullName": "Skywrath Mage"
+  },
+  "slardar": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/7b/Slardar.png",
+    "fullName": "Slardar"
+  },
+  "slark": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/e2/Slark.png",
+    "fullName": "Slark"
+  },
+  "sniper": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/8f/Sniper.png",
+    "fullName": "Sniper"
+  },
+  "spectre": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/90/Spectre.png",
+    "fullName": "Spectre"
+  },
+  "spirit-breaker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/82/Spirit_Breaker.png",
+    "fullName": "Spirit Breaker"
+  },
+  "storm-spirit": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/25/Storm_Spirit.png",
+    "fullName": "Storm Spirit"
+  },
+  "sven": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/d/dd/Sven.png",
+    "fullName": "Sven"
+  },
+  "techies": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/09/Techies.png",
+    "fullName": "Techies"
+  },
+  "templar-assassin": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/27/Templar_Assassin.png",
+    "fullName": "Templar Assassin"
+  },
+  "terrorblade": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/72/Terrorblade.png",
+    "fullName": "Terrorblade"
+  },
+  "tidehunter": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/6/6c/Tidehunter.png",
+    "fullName": "Tidehunter"
+  },
+  "timbersaw": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/8/81/Timbersaw.png",
+    "fullName": "Timbersaw"
+  },
+  "tinker": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/ec/Tinker.png",
+    "fullName": "Tinker"
+  },
+  "tiny": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/75/Tiny.png",
+    "fullName": "Tiny"
+  },
+  "treant-protector": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/18/Treant_Protector.png",
+    "fullName": "Treant Protector"
+  },
+  "troll-warlord": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/d/d7/Troll_Warlord.png",
+    "fullName": "Troll Warlord"
+  },
+  "tusk": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/4/42/Tusk.png",
+    "fullName": "Tusk"
+  },
+  "undying": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/0/0d/Undying.png",
+    "fullName": "Undying"
+  },
+  "ursa": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/a6/Ursa.png",
+    "fullName": "Ursa"
+  },
+  "vengeful-spirit": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/7/78/Vengeful_Spirit.png",
+    "fullName": "Vengeful Spirit"
+  },
+  "venomancer": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/f0/Venomancer.png",
+    "fullName": "Venomancer"
+  },
+  "viper": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/99/Viper.png",
+    "fullName": "Viper"
+  },
+  "visage": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/c2/Visage.png",
+    "fullName": "Visage"
+  },
+  "warlock": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/5/51/Warlock.png",
+    "fullName": "Warlock"
+  },
+  "weaver": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/c/c3/Weaver.png",
+    "fullName": "Weaver"
+  },
+  "windranger": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/1/11/Windranger.png",
+    "fullName": "Windranger"
+  },
+  "winter-wyvern": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/9/92/Winter_Wyvern.png",
+    "fullName": "Winter Wyvern"
+  },
+  "witch-doctor": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/ac/Witch_Doctor.png",
+    "fullName": "Witch Doctor"
+  },
+  "wraith-king": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/f/f2/Wraith_King.png",
+    "fullName": "Wraith King"
+  },
+  "zeus": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/3/3c/Zeus.png",
+    "fullName": "Zeus"
+  }
+}
