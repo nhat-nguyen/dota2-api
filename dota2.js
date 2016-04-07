@@ -309,7 +309,7 @@ function getHeroStats(name) {
 
     var promise = function(resolve, reject) {
         x(heroLink, {
-            mostUsedItems: x('section:nth-child(5) tr', [mostUsedItemsModel]),
+            mostUsedItems: x('section:nth-child(5):not(.hero_attributes) tr', [mostUsedItemsModel]),
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
         })(function(err, hero) {
