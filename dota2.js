@@ -1,10 +1,13 @@
-var _ = require('lodash');
+var _       = require('lodash');
 var cheerio = require('cheerio');
-var Xray = require('x-ray');
-var x = Xray();
+var Xray    = require('x-ray');
+var x       = Xray();
 
-var heroesNames = require('./res/heroes-names.json');
-var heroes = require('./res/heroes.json');
+var HEROES  = require('./res/heroes.json');
+
+// a map version of the heroes array for faster
+// access based on hero name
+var HEROES_MAP = require('./res/heroes-map.json');
 
 var regexes = {
     lineBreaks: '\r?\n|\r',
@@ -263,10 +266,10 @@ function getRecentMatches() {
     return new Promise(promise);
 }
 
-// Returns a map from hero name to its corresponding name used in the api
+// Returns a list of all heroes with their icons and full names
 function getHeroes() {
     return new Promise(function(resolve, reject) {
-        resolve(heroesNames);
+        resolve(HEROES);
     });
 }
 
@@ -309,17 +312,14 @@ function getHeroStats(name) {
             mostUsedItems: x('section:nth-child(5) tr', [mostUsedItemsModel]),
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
-            icon: x('.header-content img@src')
         })(function(err, hero) {
             if (err) {
                 reject(err);
             } else {
-                getHeroes().then(function(res) {
-                    hero['name'] = res[name];
-                    resolve(hero);
-                }, function(err) {
-                    reject(err);
-                });
+                hero.name = name;
+                hero.fullName = HEROES_MAP[name].fullName;
+                hero.icon = HEROES_MAP[name].icon;
+                resolve(hero);
             }
         });
     };
