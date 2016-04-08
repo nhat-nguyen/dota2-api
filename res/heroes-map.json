@@ -12,7 +12,7 @@
     "fullName": "Ancient Apparition"
   },
   "anti-mage": {
-    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/ef/Anti-Mage",
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/e/ef/Anti-Mage.png",
     "fullName": "Anti-Mage"
   },
   "arc-warden": {
@@ -227,8 +227,8 @@
     "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/d/d5/Naga_Siren.png",
     "fullName": "Naga Siren"
   },
-  "nature-s-prophet": {
-    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/aa/Nature%27s_Prophet",
+  "natures-prophet": {
+    "icon": "http://hydra-media.cursecdn.com/dota2.gamepedia.com/a/aa/Nature%27s_Prophet.png",
     "fullName": "Nature's Prophet"
   },
   "necrophos": {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,6 @@
     "lodash": "^4.0.0",
     "mongodb": "^2.1.7",
     "redis": "^2.4.2",
-    "x-ray": "git+https://github.com/lapwinglabs/x-ray.git#bugfix/nested-crawling"
+    "x-ray": "2.0.0"
   }
 }
