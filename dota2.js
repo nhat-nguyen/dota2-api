@@ -347,7 +347,3 @@ module.exports = {
     getHeroesStats: getHeroesStats,
     getHeroes: getHeroes
 };
-
-
-h = _.chain("Nature''s Prophet").replace(/'/g, '').kebabCase().value();
-console.log(h);
