@@ -300,7 +300,7 @@ function getHeroStats(name) {
     };
 
     var heroAgainstModel = {
-        name: 'td:nth-child(2) a',
+        fullName: 'td:nth-child(2) a',
         advantage: 'td:nth-child(3)',
         winRate: 'td:nth-child(4)',
         matches: 'td:nth-child(5)',
@@ -319,6 +319,15 @@ function getHeroStats(name) {
                 hero.name = name;
                 hero.fullName = HEROES_MAP[name].fullName;
                 hero.icon = HEROES_MAP[name].icon;
+
+                _.forEach(hero.bestAgainst, function(h) {
+                    h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
+                });
+
+                _.forEach(hero.worstAgainst, function(h) {
+                    h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
+                });
+
                 resolve(hero);
             }
         });
@@ -338,3 +347,7 @@ module.exports = {
     getHeroesStats: getHeroesStats,
     getHeroes: getHeroes
 };
+
+
+h = _.chain("Nature''s Prophet").replace(/'/g, '').kebabCase().value();
+console.log(h);
