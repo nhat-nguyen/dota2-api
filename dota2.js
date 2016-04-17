@@ -15,12 +15,14 @@ var regexes = {
     roundBrackets : '\(|\)'
 };
 
+function Dota() {}
+
 function prettyPrint(input) {
     console.log(JSON.stringify(input, null, 2));
 }
 
 // Ranking
-function getTeamsRankings() {
+Dota.prototype.getTeamsRankings = function() {
     var trimTeamsData = function(teams) {
         _(teams).forEach(function(team, i) {
             team.country = _.trim(team.country);
@@ -48,7 +50,7 @@ function getTeamsRankings() {
 };
 
 // Team logos
-function getTeamsLogos() {
+Dota.prototype.getTeamsLogos = function() {
     var getTeamsLogosPromise = function(resolve, reject) {
         x('http://dota2.gamepedia.com/Professional_teams', 'td[valign="top"]', [{
             team: 'span',
@@ -66,7 +68,7 @@ function getTeamsLogos() {
 }
 
 /* Get team information */
-function getTeamData(id) {
+Dota.prototype.getTeamData = function(id) {
     var parseRecentMatchHtml = function(team) {
         _(team.recentMatches).forEach(function(match, i) {
             var $ = cheerio.load(match.html);
@@ -148,7 +150,7 @@ function getTeamData(id) {
 }
 
 // Upcoming matches
-function getUpcomingMatches() {
+Dota.prototype.getUpcomingMatches = function() {
     var promise = function(resolve, reject) {
         x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:nth-child(2) tr', [{
             firstOpponent: {
@@ -190,7 +192,7 @@ function getUpcomingMatches() {
 }
 
 // Live matches
-function getLiveMatches() {
+Dota.prototype.getLiveMatches = function() {
     var promise = function(resolve, reject) {
         x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child', [{
             firstOpponent: {
@@ -226,7 +228,7 @@ function getLiveMatches() {
 }
 
 // Recent results
-function getRecentMatches() {
+Dota.prototype.getRecentMatches = function() {
     var promise = function(resolve, reject) {
         x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:last-child tr', [{
             firstOpponent: {
@@ -267,13 +269,13 @@ function getRecentMatches() {
 }
 
 // Returns a list of all heroes with their icons and full names
-function getHeroes() {
+Dota.prototype.getHeroes = function() {
     return new Promise(function(resolve, reject) {
         resolve(HEROES);
     });
 }
 
-function getHeroesStats(start, end) {
+Dota.prototype.getHeroesStats = function(start, end) {
     start = start || 0;
     end = end || heroes.length;
 
@@ -288,7 +290,7 @@ function getHeroesStats(start, end) {
     });
 }
 
-function getHeroStats(name) {
+Dota.prototype.getHeroStats = function(name) {
     var heroLink = 'http://www.dotabuff.com/heroes/' + name;
 
     var mostUsedItemsModel = {
@@ -336,14 +338,20 @@ function getHeroStats(name) {
     return new Promise(promise);
 }
 
-module.exports = {
-    getTeamsRankings: getTeamsRankings,
-    getTeamsLogos: getTeamsLogos,
-    getTeamData: getTeamData,
-    getUpcomingMatches: getUpcomingMatches,
-    getLiveMatches: getLiveMatches,
-    getRecentMatches: getRecentMatches,
-    getHeroStats: getHeroStats,
-    getHeroesStats: getHeroesStats,
-    getHeroes: getHeroes
-};
+Dota.prototype.getGraphs = function(name) {
+    var heroLink = 'http://www.dotabuff.com/heroes/' + name;
+
+    var promise = function(resolve, reject) {
+        x('http://www.dotabuff.com/heroes/io', 'body@html')(function(err, hero) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(hero);
+            }
+        });
+    };
+
+    return new Promise(promise);
+}
+
+module.exports = new Dota();
