@@ -21,6 +21,26 @@ function prettyPrint(input) {
     console.log(JSON.stringify(input, null, 2));
 }
 
+// Parse the 2 teams' names in a match given its gosugamer's url
+// Return an array containing 2 teams' names
+function parseTeamsNames(url) {
+    return _.chain(url)
+            .split('/')                                                         // split into an array of url segments
+            .thru(function(arr) {
+                return _.last(arr);                                             // get 2 teams names in the last segment
+            })
+            .split('-')                                                         // split the teams names into an array
+            .thru(function(arr) {
+                return arr.slice(1).join(' ').split(' vs ');                    // remove the match id, returns array of 2 names
+            })
+            .map(function(name) {
+                return name.replace(/\w\S*/g, function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
+            })
+            .value();
+}
+
 // Ranking
 Dota.prototype.getTeamsRankings = function() {
     var trimTeamsData = function(teams) {
@@ -37,12 +57,10 @@ Dota.prototype.getTeamsRankings = function() {
             name: 'span:last-child',
             id: 'tr.ranking-link@data-id'
         }])(function(err, teams) {
-            if (err) {
-                reject(err);
-            } else {
-                trimTeamsData(teams);
-                resolve(teams);
-            }
+            if (err) return reject(err);
+
+            trimTeamsData(teams);
+            resolve(teams);
         });
     };
 
@@ -56,11 +74,8 @@ Dota.prototype.getTeamsLogos = function() {
             team: 'span',
             url: 'img@src'
         }])(function(err, logos) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(logos);
-            }
+            if (err) return reject(err);
+            resolve(logos);
         });
     }
 
@@ -133,16 +148,14 @@ Dota.prototype.getTeamData = function(id) {
             region: '.ranking:last-child .region',
             perfomance: x('.stats-table')
         })(function(err, obj) {
-            if (err) {
-                reject(err);
-            } else {
-                obj.perfomance = getPerformanceTable(obj.perfomance);
-                obj.name = _.trim(obj.name);
-                obj.id = id;
-                parsePlayerAvatar(obj);
-                parseRecentMatchHtml(obj);
-                resolve(obj);
-            }
+            if (err) return reject(err);
+
+            obj.perfomance = getPerformanceTable(obj.perfomance);
+            obj.name = _.trim(obj.name);
+            obj.id = id;
+            parsePlayerAvatar(obj);
+            parseRecentMatchHtml(obj);
+            resolve(obj);
         });
     };
 
@@ -167,24 +180,22 @@ Dota.prototype.getUpcomingMatches = function() {
                 icon: '.tournament-icon img@src'
             }
         }])(function(err, upcomingMatches) {
-            if (err) {
-                reject(err);
-            } else {
-                _(upcomingMatches).forEach(function(match) {
-                    match.liveIn = _.trim(match.liveIn);
-                    match.tournament.name = _.chain(match.tournament.name)
-                                             .trim()                            // trim trailing and leading spaces
-                                             .replace(/\r?\n|\r/g, '')          // remove any line breaks
-                                             .replace(/\s+/g, ' ')              // remove any multiple spaces with 1
-                                             .value();
-                    match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
-                    match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
-                    match.firstOpponent.score = 'N/A';
-                    match.secondOpponent.score = 'N/A';
-                });
+            if (err) return reject(err);
 
-                resolve(upcomingMatches);
-            }
+            _(upcomingMatches).forEach(function(match) {
+                match.liveIn = _.trim(match.liveIn);
+                match.tournament.name = _.chain(match.tournament.name)
+                                         .trim()                                // trim trailing and leading spaces
+                                         .replace(/\r?\n|\r/g, '')              // remove any line breaks
+                                         .replace(/\s+/g, ' ')                  // remove any multiple spaces with 1
+                                         .value();
+                match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
+                match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
+                match.firstOpponent.score = 'N/A';
+                match.secondOpponent.score = 'N/A';
+            });
+
+            resolve(upcomingMatches);
         });
     };
 
@@ -244,24 +255,23 @@ Dota.prototype.getRecentMatches = function() {
             tournament: {
                 name: x('.tournament a@href', 'h1'),
                 icon: '.tournament-icon img@src'
-            }
+            },
+            link: x('a@href')
         }])(function(err, matches) {
-            if (err) {
-                reject(err);
-            } else {
-                _(matches).forEach(function(match) {
-                    match.tournament.name = _.chain(match.tournament.name)
-                                             .trim()
-                                             .replace(/\r?\n|\r/g, '')
-                                             .replace(/\s+/g, ' ')
-                                             .value();
-                    match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
-                    match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
-                    match.liveIn = 'N/A';
-                });
+            if (err) return reject(err);
 
-                resolve(matches);
-            }
+            _(matches).forEach(function(match) {
+                match.tournament.name = _.chain(match.tournament.name)
+                                         .trim()
+                                         .replace(/\r?\n|\r/g, '')
+                                         .replace(/\s+/g, ' ')
+                                         .value();
+                match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');     // remove the surrounding brackets
+                match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
+                match.liveIn = 'N/A';
+            });
+
+            resolve(matches);
         });
     };
 
@@ -315,23 +325,21 @@ Dota.prototype.getHeroStats = function(name) {
             bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
             worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
         })(function(err, hero) {
-            if (err) {
-                reject(err);
-            } else {
-                hero.name = name;
-                hero.fullName = HEROES_MAP[name].fullName;
-                hero.icon = HEROES_MAP[name].icon;
+            if (err) return reject(err);
 
-                _.forEach(hero.bestAgainst, function(h) {
-                    h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
-                });
+            hero.name = name;
+            hero.fullName = HEROES_MAP[name].fullName;
+            hero.icon = HEROES_MAP[name].icon;
 
-                _.forEach(hero.worstAgainst, function(h) {
-                    h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
-                });
+            _.forEach(hero.bestAgainst, function(h) {
+                h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
+            });
 
-                resolve(hero);
-            }
+            _.forEach(hero.worstAgainst, function(h) {
+                h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
+            });
+
+            resolve(hero);
         });
     };
 
@@ -343,11 +351,8 @@ Dota.prototype.getGraphs = function(name) {
 
     var promise = function(resolve, reject) {
         x('http://www.dotabuff.com/heroes/io', 'body@html')(function(err, hero) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(hero);
-            }
+            if (err) return reject(err);
+            resolve(hero);
         });
     };
 
