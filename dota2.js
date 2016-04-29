@@ -1,20 +1,24 @@
-var _       = require('lodash');
-var cheerio = require('cheerio');
-var Xray    = require('x-ray');
-var x       = Xray();
+var _       = require('lodash'),
+    x       = require('x-ray')(),
+    HEROES  = require('./res/heroes.json'),
+    LOGOS   = require('./res/teams-logos.json');
 
-var HEROES  = require('./res/heroes.json');
+var MODELS = {
+    teamRankings: require('./libs/team/ranking.js'),
+    teamInformation: require('./libs/team/information.js'),
+    teamLogo: require('./libs/team/logo.js'),
+    upcomingMatches: require('./libs/match/upcoming.js'),
+    liveMatches: require('./libs/match/live.js'),
+    recentMatches: require('./libs/match/recent.js'),
+    hero: require('./libs/hero/stats.js')
+};
 
-// a map version of the heroes array for faster
-// access based on hero name
-var HEROES_MAP = require('./res/heroes-map.json');
-
-var LOGOS = require('./res/teams-logos.json');
-
-var regexes = {
-    lineBreaks: '\r?\n|\r',
-    multipleSpaces: '\s+',
-    roundBrackets : '\(|\)'
+var URLS = {
+    teamRankings: 'http://www.gosugamers.net/dota2/rankings/',
+    teamInformation: 'http://www.gosugamers.net/rankings/show/team/',
+    teamLogo: 'http://dota2.gamepedia.com/Professional_teams/',
+    matches: 'http://www.gosugamers.net/dota2/gosubet/',
+    hero: 'http://www.dotabuff.com/heroes/'
 };
 
 function Dota() {}
@@ -23,272 +27,77 @@ function prettyPrint(input) {
     console.log(JSON.stringify(input, null, 2));
 }
 
-// Parse the 2 teams' names in a match given its gosugamer's url
-// Return an array containing 2 teams' names
-function parseTeamsNames(url) {
-    return _.chain(url)
-            .split('/')                                                         // split into an array of url segments
-            .thru(function(arr) {
-                return _.last(arr);                                             // get 2 teams names in the last segment
-            })
-            .split('-')                                                         // split the teams names into an array
-            .thru(function(arr) {
-                return arr.slice(1).join(' ').split(' vs ');                    // remove the match id, returns array of 2 names
-            })
-            .map(function(name) {
-                return name.replace(/\w\S*/g, function(txt) {
-                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });
-            })
-            .value();
-}
-
-// Ranking
-Dota.prototype.getTeamsRankings = function() {
-    var trimTeamsData = function(teams) {
-        _(teams).forEach(function(team, i) {
-            team.country = _.trim(team.country);
-            team.name = _.trim(team.name);
-            team.rank = i + 1;
-        });
-    };
-
-    var getTeamsRankingsPromise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/rankings', 'tr.ranking-link', [{
-            country: 'span[title]@title',
-            name: 'span:last-child',
-            id: 'tr.ranking-link@data-id'
-        }])(function(err, teams) {
+Dota.prototype.getTeamsRankings = () => {
+    return new Promise((resolve, reject) => {
+        MODELS.teamRankings.getXrayModel(URLS.teamRankings)((err, res) => {
             if (err) return reject(err);
-
-            trimTeamsData(teams);
-            resolve(teams);
+            resolve(MODELS.teamRankings.postProcess(res));
         });
-    };
-
-    return new Promise(getTeamsRankingsPromise);
+    });
 };
 
-// Team logos
-Dota.prototype.getTeamsLogos = function() {
-    var getTeamsLogosPromise = function(resolve, reject) {
-        x('http://dota2.gamepedia.com/Professional_teams', 'td[valign="top"]', [{
-            team: 'span',
-            url: 'img@src'
-        }])(function(err, logos) {
+Dota.prototype.getTeamsLogos = () => {
+    return new Promise((resolve, reject) => {
+        teamLogo.getXrayModel(URLS.teamLogo)((err, res) => {
             if (err) return reject(err);
-            resolve(logos);
+            resolve(res);
         });
-    }
-
-    return new Promise(getTeamsLogosPromise);
-}
+    });
+};
 
 Dota.prototype.getTeamLogo = function(name) {
 
-}
+};
 
-/* Get team information */
-Dota.prototype.getTeamData = function(id) {
-    var parseRecentMatchHtml = function(team) {
-        _(team.recentMatches).forEach(function(match, i) {
-            var $ = cheerio.load(match.html);
-            match.tournament = $('.match-details').clone().children().remove().end().text();
-            match.time = $('.time').text();
-            delete match.html;
-        });
-    };
-
-    var parsePlayerAvatar = function(team) {
-        _(team.roster).forEach(function(player) {
-            player.avatar = 'http://www.gosugamers.net' + player.avatar.match(/\/.+(?:jpeg|png)/);
-        });
-    };
-
-    var getPerformanceTable = function(html) {
-        var parsedArray = _.chain(html).replace(/ +/g, ' ').split('\r\n')
-                            .remove(function(element) {
-                                return element && element !== ' ' && !_.includes(element, 'Winrate')
-                                       && !_.includes(element, 'Matches played') && !_.includes(element, 'Current streak');
-                            })
-                            .map(function(element) {
-                                return _.chain(element).trim().replace(/:/g, '').value();
-                            })
-                            .value();
-
-        var perfomance = {'currentStreak': _.last(parsedArray)};
-
-        for (var i = 0; i < 3; i++) {
-            var matchesPlayed = _.split(parsedArray[i + 6], '/');
-            perfomance[parsedArray[i]] = {
-                'winRate': parsedArray[i + 3],
-                'matchesPlayed': {
-                    'win': _.parseInt(matchesPlayed[0], 10),
-                    'draw': _.parseInt(matchesPlayed[1], 10),
-                    'lose': _.parseInt(matchesPlayed[2], 10)
-                }
-            };
-        }
-
-        return perfomance;
-    }
-
-    var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/rankings/show/team/' + id, {
-            name: x('h3'),
-            roster: x('#roster a', [{
-                player: 'a@title',
-                signatureHeroes: x('.heroes', ['img@title']),
-                avatar: 'a@style'
-            }]),
-            recentMatches: x('.match-list-row', [{
-                html: 'a@title',
-                opponent: 'strong',
-                result: 'span'
-            }]),
-            rankings: x('.rankings', {
-                worldwide: '.ranking:first-child .number',
-                regional: '.ranking:last-child .number'
-            }),
-            country: '.flag@title',
-            region: '.ranking:last-child .region',
-            perfomance: x('.stats-table')
-        })(function(err, obj) {
+Dota.prototype.getTeamData = (id) => {
+    var url = URLS.teamInformation + id;
+    return new Promise((resolve, reject) => {
+        MODELS.teamInformation.getXrayModel(url)((err, res) => {
             if (err) return reject(err);
-
-            obj.perfomance = getPerformanceTable(obj.perfomance);
-            obj.name = _.trim(obj.name);
-            obj.id = id;
-            parsePlayerAvatar(obj);
-            parseRecentMatchHtml(obj);
-            resolve(obj);
+            resolve(MODELS.teamInformation.postProcess(res));
         });
-    };
+    });
+};
 
-    return new Promise(promise);
-}
-
-// Upcoming matches
-Dota.prototype.getUpcomingMatches = function() {
-    var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:nth-child(2) tr', [{
-            firstOpponent: {
-                name: '.opp.opp1 span:first-child',
-                betPercentage: '.bet-percentage.bet1'
-            },
-            secondOpponent: {
-                name: '.opp.opp2 span:last-child',
-                betPercentage: '.bet-percentage.bet2'
-            },
-            liveIn: '.live-in',
-            tournament: {
-                name: x('.tournament a@href', 'h1'),
-                icon: '.tournament-icon img@src'
-            }
-        }])(function(err, upcomingMatches) {
+Dota.prototype.getUpcomingMatches = () => {
+    return new Promise((resolve, reject) => {
+        MODELS.upcomingMatches.getXrayModel(URLS.matches)((err, res) => {
             if (err) return reject(err);
-
-            _(upcomingMatches).forEach(function(match) {
-                match.liveIn = _.trim(match.liveIn);
-                match.tournament.name = _.chain(match.tournament.name)
-                                         .trim()                                // trim trailing and leading spaces
-                                         .replace(/\r?\n|\r/g, '')              // remove any line breaks
-                                         .replace(/\s+/g, ' ')                  // remove any multiple spaces with 1
-                                         .value();
-                match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');
-                match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
-                match.firstOpponent.score = 'N/A';
-                match.secondOpponent.score = 'N/A';
-            });
-
-            resolve(upcomingMatches);
+            resolve(MODELS.upcomingMatches.postProcess(res));
         });
-    };
+    });
+};
 
-    return new Promise(promise);
-}
-
-// Live matches
 Dota.prototype.getLiveMatches = function() {
-    var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child tr', [{
-            firstOpponent: {
-                name: '.opp.opp1 span:first-child',
-                betPercentage: '.bet-percentage.bet1'
-            },
-            secondOpponent: {
-                name: '.opp.opp2 span:last-child',
-                betPercentage: '.bet-percentage.bet2'
-            },
-            tournament: {
-                name: x('.tournament a@href', 'h1'),
-                icon: '.tournament-icon img@src'
-            }
-        }])(function(err, matches) {
-            if (err) {
-                // happens when there is no live match
-                if (err.message === 'undefined is not a URL') {
-                    resolve([]);
-                } else {
-                    reject(err);
-                }
+    var errorMsg = 'undefined is not a URL';
+    return new Promise((resolve, reject) => {
+        MODELS.liveMatches.getXrayModel(URLS.matches)((err, res) => {
+            if (err && err.message === errorMsg) {
+                resolve([]);
+            } else if (err) {
+                reject(err);
             } else {
-                _(matches).forEach(function(match) {
-                    match.liveIn = 'Now';
-                });
-                resolve(matches);
+                resolve(MODELS.liveMatches.postProcess(res));
             }
         });
-    };
+    });
+};
 
-    return new Promise(promise);
-}
-
-// Recent results
 Dota.prototype.getRecentMatches = function() {
-    var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:last-child tr', [{
-            firstOpponent: {
-                name: '.opp.opp1 span:first-child',
-                betPercentage: '.bet-percentage.bet1',
-                score: '.score-wrap > span:nth-child(2) > span:first-child'
-            },
-            secondOpponent: {
-                name: '.opp.opp2 span:last-child',
-                betPercentage: '.bet-percentage.bet2',
-                score: '.score-wrap > span:nth-child(2) > span:last-child'
-            },
-            tournament: {
-                name: x('.tournament a@href', 'h1'),
-                icon: '.tournament-icon img@src'
-            }
-        }])(function(err, matches) {
+    return new Promise((resolve, reject) => {
+        MODELS.recentMatches.getXrayModel(URLS.matches)((err, res) => {
             if (err) return reject(err);
-
-            _(matches).forEach(function(match) {
-                match.tournament.name = _.chain(match.tournament.name)
-                                         .trim()
-                                         .replace(/\r?\n|\r/g, '')
-                                         .replace(/\s+/g, ' ')
-                                         .value();
-                match.firstOpponent.betPercentage = _.replace(match.firstOpponent.betPercentage, /\(|\)/g, '');     // remove the surrounding brackets
-                match.secondOpponent.betPercentage = _.replace(match.secondOpponent.betPercentage, /\(|\)/g, '');
-                match.liveIn = 'N/A';
-            });
-
-            resolve(matches);
+            resolve(MODELS.recentMatches.postProcess(res));
         });
-    };
-
-    return new Promise(promise);
-}
+    });
+};
 
 // Returns a list of all heroes with their icons and full names
 Dota.prototype.getHeroes = function() {
     return new Promise(function(resolve, reject) {
         resolve(HEROES);
     });
-}
+};
 
 Dota.prototype.getHeroesStats = function(start, end) {
     start = start || 0;
@@ -303,65 +112,16 @@ Dota.prototype.getHeroesStats = function(start, end) {
             resolve(_.keyBy(heroesStats, 'name'));
         });
     });
-}
+};
 
 Dota.prototype.getHeroStats = function(name) {
-    var heroLink = 'http://www.dotabuff.com/heroes/' + name;
-
-    var mostUsedItemsModel = {
-        name: 'td:nth-child(2) a',
-        matches: 'td:nth-child(3)',
-        wins: 'td:nth-child(4)',
-        winRate: 'td:nth-child(5)',
-        icon: '.cell-icon img@src'
-    };
-
-    var heroAgainstModel = {
-        fullName: 'td:nth-child(2) a',
-        advantage: 'td:nth-child(3)',
-        winRate: 'td:nth-child(4)',
-        matches: 'td:nth-child(5)',
-        icon: '.cell-icon img@src'
-    };
-
-    var promise = function(resolve, reject) {
-        x(heroLink, {
-            mostUsedItems: x('section:nth-child(5):not(.hero_attributes) tr', [mostUsedItemsModel]),
-            bestAgainst: x('section:nth-child(6) tr', [heroAgainstModel]),
-            worstAgainst: x('section:nth-child(7) tr', [heroAgainstModel]),
-        })(function(err, hero) {
+    var url = URLS.hero + name;
+    return new Promise((resolve, reject) => {
+        MODELS.hero.getXrayModel(url)((err, res) => {
             if (err) return reject(err);
-
-            hero.name = name;
-            hero.fullName = HEROES_MAP[name].fullName;
-            hero.icon = HEROES_MAP[name].icon;
-
-            _.forEach(hero.bestAgainst, function(h) {
-                h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
-            });
-
-            _.forEach(hero.worstAgainst, function(h) {
-                h.name = _.chain(h.fullName).replace(/'/g, '').kebabCase().value();
-            });
-
-            resolve(hero);
+            resolve(MODELS.hero.postProcess(res, name));
         });
-    };
-
-    return new Promise(promise);
-}
-
-Dota.prototype.getGraphs = function(name) {
-    var heroLink = 'http://www.dotabuff.com/heroes/' + name;
-
-    var promise = function(resolve, reject) {
-        x('http://www.dotabuff.com/heroes/io', 'body@html')(function(err, hero) {
-            if (err) return reject(err);
-            resolve(hero);
-        });
-    };
-
-    return new Promise(promise);
-}
+    });
+};
 
 module.exports = new Dota();
