@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    x = require('x-ray')();
+    x = require('x-ray')(),
     HEROES_MAP = require('../../res/heroes-map.json');
 
 var mostUsedItemsModel = {

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "",
     "apicache": "0.0.12",
     "body-parser": "^1.14.2",
     "cheerio": "^0.19.0",
