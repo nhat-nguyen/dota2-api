@@ -1,6 +1,6 @@
 var _         = require('lodash'),
-    x         = require('x-ray')();
-    baseModel = require('./baseModel.js');
+    x         = require('x-ray')(),
+    baseModel = require('./baseModel.js'),
     utilities = require('./utilities.js');
 
 function getXrayModel(url) {
