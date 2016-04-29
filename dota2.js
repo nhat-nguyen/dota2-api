@@ -9,6 +9,8 @@ var HEROES  = require('./res/heroes.json');
 // access based on hero name
 var HEROES_MAP = require('./res/heroes-map.json');
 
+var LOGOS = require('./res/teams-logos.json');
+
 var regexes = {
     lineBreaks: '\r?\n|\r',
     multipleSpaces: '\s+',
@@ -80,6 +82,10 @@ Dota.prototype.getTeamsLogos = function() {
     }
 
     return new Promise(getTeamsLogosPromise);
+}
+
+Dota.prototype.getTeamLogo = function(name) {
+
 }
 
 /* Get team information */
@@ -205,7 +211,7 @@ Dota.prototype.getUpcomingMatches = function() {
 // Live matches
 Dota.prototype.getLiveMatches = function() {
     var promise = function(resolve, reject) {
-        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child', [{
+        x('http://www.gosugamers.net/dota2/gosubet', '#col1 .box:first-child tr', [{
             firstOpponent: {
                 name: '.opp.opp1 span:first-child',
                 betPercentage: '.bet-percentage.bet1'
@@ -255,8 +261,7 @@ Dota.prototype.getRecentMatches = function() {
             tournament: {
                 name: x('.tournament a@href', 'h1'),
                 icon: '.tournament-icon img@src'
-            },
-            link: x('a@href')
+            }
         }])(function(err, matches) {
             if (err) return reject(err);
 
